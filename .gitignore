@@ -1,0 +1,9 @@
+.idea/*
+*.exe
+*.exe~
+vendor/*
+go.sum
+lastupdate.tmp
+*.tar.gz
+/logs
+*.yaml
