@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"ginApi/conf"
+	"ginApi/router"
 	"github.com/gin-gonic/gin"
 )
 
@@ -21,9 +22,10 @@ func main()  {
 	//初始化路由
 	route := gin.Default()
 
-	//初始化中间件 权限校验 跨域问题解决等
+	router.InitRouter(route)
 
 	//项目启动
+	fmt.Println("list port:",config.AppConf.Port)
 	_ = route.Run(config.AppConf.Port)
 }
 

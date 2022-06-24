@@ -28,7 +28,7 @@ type RedisConfig struct {
 
 func InitConf() *Config  {
 	viper.SetConfigType("yaml") //设置配置文件格式
-	viper.AddConfigPath("conf") //设置配置文件的路径
+	viper.AddConfigPath("conf/") //设置配置文件的路径
 	viper.SetConfigName("app")	//设置配置文件名
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
