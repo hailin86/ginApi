@@ -3,12 +3,19 @@ package api
 import "github.com/gin-gonic/gin"
 
 func InitRouter(r *gin.Engine)  {
-	order := OrderController{}
-	r.POST("/api/api/order/getItems",order.GetItems)
-	r.POST("/api/api/order/getItem",order.GetItem)
+	api := r.Group("/api/api/")
+	{
+		order := OrderController{}
+		api.POST("order/getItems",order.GetItems)
+		api.POST("order/getItem",order.GetItem)
 
-	product := ProductController{}
-	r.POST("/api/api/product/getItems",product.GetItems)
-	r.POST("/api/api/product/getItem",product.GetItem)
+		product := ProductController{}
+		api.POST("product/getItems",product.GetItems)
+		api.POST("product/getItem",product.GetItem)
+
+	}
+
+
+
 
 }

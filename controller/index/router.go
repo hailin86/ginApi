@@ -3,12 +3,16 @@ package index
 import "github.com/gin-gonic/gin"
 
 func InitRouter(r *gin.Engine)  {
-	order := OrderController{}
-	r.POST("/api/index/order/getItems",order.GetItems)
-	r.POST("/api/index/order/getItem",order.GetItem)
+	index := r.Group("/api/index/")
+	{
+		order := OrderController{}
+		index.POST("order/getItems",order.GetItems)
+		index.POST("order/getItem",order.GetItem)
 
-	product := ProductController{}
-	r.POST("/api/index/product/getItems",product.GetItems)
-	r.POST("/api/index/product/getItem",product.GetItem)
+		product := ProductController{}
+		index.POST("product/getItems",product.GetItems)
+		index.POST("product/getItem",product.GetItem)
+	}
+
 
 }

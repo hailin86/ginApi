@@ -25,7 +25,7 @@ func main()  {
 	router.InitRouter(route)
 
 	//项目启动
-	fmt.Println("list port:",config.AppConf.Port)
+	fmt.Println("listen port:",config.AppConf.Port)
 	_ = route.Run(config.AppConf.Port)
 }
 
