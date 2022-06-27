@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"ginApi/conf"
+	"ginApi/model"
 	"ginApi/router"
 	"github.com/gin-gonic/gin"
 )
@@ -10,8 +11,16 @@ import (
 func main()  {
 	//初始化配置
 	config := conf.InitConf()
+
+	//初始化路由
+	route := gin.Default()
+	router.InitRouter(route)
+
 	//初始化mysql
 	sqlConn := config.SqlConn
+	fmt.Println("mysql conn:",sqlConn)
+
+	model.InitDB(sqlConn) //gorm
 	fmt.Println(sqlConn)
 
 	//初始化redis
@@ -19,10 +28,7 @@ func main()  {
 
 	//初始化日志
 
-	//初始化路由
-	route := gin.Default()
 
-	router.InitRouter(route)
 
 	//项目启动
 	fmt.Println("listen port:",config.AppConf.Port)
