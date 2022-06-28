@@ -18,7 +18,7 @@ func (this *ProductController) GetItems (c *gin.Context)  {
 	c.JSON(http.StatusOK,gin.H{
 		"code":200,
 		"msg":"success",
-		"data":nil,
+		"data":"我是 index 模块 product list",
 	})
 }
 

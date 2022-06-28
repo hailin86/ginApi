@@ -12,6 +12,15 @@ type TestController struct {
 }
 
 func (this *TestController) Test(c *gin.Context)  {
+	c.JSON(http.StatusOK,gin.H{
+		"code":200,
+		"msg":"success",
+		"data":"测试局部中间件",
+	})
+	return
+
+
+
 	//hash 操作
 	cc := cache.CartCache{}
 	//cc.HSet(1,1,3)
