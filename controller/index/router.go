@@ -12,6 +12,9 @@ func InitRouter(r *gin.Engine)  {
 		product := ProductController{}
 		index.POST("product/getItems",product.GetItems)
 		index.POST("product/getItem",product.GetItem)
+
+		test := TestController{}
+		index.POST("test/test",test.Test)
 	}
 
 

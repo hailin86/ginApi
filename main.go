@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"ginApi/cache"
 	"ginApi/conf"
 	"ginApi/model"
 	"ginApi/router"
@@ -19,15 +20,14 @@ func main()  {
 	//初始化mysql
 	sqlConn := config.SqlConn
 	fmt.Println("mysql conn:",sqlConn)
-
 	model.InitDB(sqlConn) //gorm
-	fmt.Println(sqlConn)
+
 
 	//初始化redis
 	fmt.Println("redis db num:",config.RedisConf.Db)
+	cache.InitRedis(config.RedisConf)
 
 	//初始化日志
-
 
 
 	//项目启动
