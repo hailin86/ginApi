@@ -1,8 +1,9 @@
 package middleware
 
 import (
+	 "ginApi/common"
 	"github.com/gin-gonic/gin"
-	"net/http"
+	"strconv"
 )
 
 func CheckUserAuth() gin.HandlerFunc {
@@ -10,14 +11,15 @@ func CheckUserAuth() gin.HandlerFunc {
 		//
 		ginToken := c.Request.Header.Get("GINTOKEN")
 		if ginToken == "" {
-			c.JSON(http.StatusOK,gin.H{"code":1,"msg":"token 不存在","data":nil})
+			common.Failed(c,"token 不存在",1,nil)
+			//c.JSON(http.StatusOK,gin.H{"code":1,"msg":"","data":nil})
 			c.Abort()
 			return
 		}
-		//此处可以配合jwt
-		//解析token
-		c.Set("userId",88)
-		c.Next() // 后续的处理函数可以用过c.Get("username")来获取当前请求的用户信息
+		//此处可以配合jwt解析token
+		userId,_ := strconv.Atoi(ginToken)
+		c.Set("userId",userId)
+		//c.Next() // 后续的处理函数可以用过c.Get("userId")来获取当前请求的用户信息
 
 	}
 }

@@ -3,6 +3,7 @@ package index
 import (
 	"fmt"
 	"ginApi/cache"
+	"ginApi/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -12,11 +13,7 @@ type TestController struct {
 }
 
 func (this *TestController) Test(c *gin.Context)  {
-	c.JSON(http.StatusOK,gin.H{
-		"code":200,
-		"msg":"success",
-		"data":"测试局部中间件",
-	})
+	common.Success(c,"我是test啊")
 	return
 
 
