@@ -28,6 +28,7 @@ func main()  {
 
 
 	//初始化路由
+	//route := gin.Default()
 	route := gin.New()
 	route.Use(middleware.GinLogger(),middleware.GinRecovery(false))
 	//使用中间件解决跨域问题
