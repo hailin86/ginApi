@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"ginApi/cache"
+	"ginApi/common"
 	"ginApi/conf"
 	"ginApi/middleware"
 	"ginApi/model"
@@ -16,7 +16,7 @@ func main()  {
 
 	//初始化mysql
 	sqlConn := config.SqlConn
-	fmt.Println("mysql conn:",sqlConn)
+	//fmt.Println("mysql conn:",sqlConn)
 	model.InitDB(sqlConn) //gorm
 
 	//初始化redis
@@ -24,18 +24,21 @@ func main()  {
 	cache.InitRedis(config.RedisConf)
 
 	//初始化日志
+	common.InitLogger()
 
 
 	//初始化路由
-	route := gin.Default()
+	route := gin.New()
+	route.Use(middleware.GinLogger(),middleware.GinRecovery(false))
 	//使用中间件解决跨域问题
 	route.Use(middleware.Cors())
-	//校验接口调用者身份
-	//route.Use(middleware.CheckAppInstance())
+
 	router.InitRouter(route)
 	//项目启动
 	//gin.SetMode(gin.ReleaseMode)
-	fmt.Println("app listen port:",config.AppConf.Port)
+	//fmt.Println("app listen port:",config.AppConf.Port)
+
+
 	_ = route.Run(config.AppConf.Port)
 }
 

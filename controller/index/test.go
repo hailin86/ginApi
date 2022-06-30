@@ -1,11 +1,9 @@
 package index
 
 import (
-	"fmt"
-	"ginApi/cache"
+	"errors"
 	"ginApi/common"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 type TestController struct {
@@ -13,30 +11,33 @@ type TestController struct {
 }
 
 func (this *TestController) Test(c *gin.Context)  {
+	err := errors.New("请求失败")
+	num := 1
+	common.LogInfo(c,"err=",err,"num=",num,"|more11...")
 	common.Success(c,"我是test啊")
 	return
 
 
 
 	//hash 操作
-	cc := cache.CartCache{}
+	//cc := cache.CartCache{}
 	//cc.HSet(1,1,3)
 	//cc.HSet(1,2,1)
 	//cc.HSet(1,3,3)
 	//cc.HSet(2,4,6)
 	//cc.HSet(2,5,2)
 	//cc.HSet(2,6,4)
-	flag1 := cc.HExists(1,1)
-	fmt.Println("flag1:",flag1) //true
-	flag2 :=cc.HExists(1,5)
-	fmt.Println("flag2:",flag2) //false
-	res1 := cc.HGet(1,1)
-	fmt.Println("res1:",res1) //false
-	res2 := cc.HGet(1,6)
-	fmt.Println("res2:",res2) //false
-
-	flag3 := cc.HIncrBy(1,1,8)
-	fmt.Println("flag3:",flag3) //false
+	//flag1 := cc.HExists(1,1)
+	//fmt.Println("flag1:",flag1) //true
+	//flag2 :=cc.HExists(1,5)
+	//fmt.Println("flag2:",flag2) //false
+	//res1 := cc.HGet(1,1)
+	//fmt.Println("res1:",res1) //false
+	//res2 := cc.HGet(1,6)
+	//fmt.Println("res2:",res2) //false
+	//
+	//flag3 := cc.HIncrBy(1,1,8)
+	//fmt.Println("flag3:",flag3) //false
 
 
 	//list 操作
@@ -100,11 +101,4 @@ func (this *TestController) Test(c *gin.Context)  {
 	////删除 该成员
 	//flag2 := ipC.SRem(ip)
 	//fmt.Println("del flag:",flag2)
-
-	c.JSON(http.StatusOK,gin.H{
-		"code":200,
-		"msg":"success",
-		"data":nil,
-	})
-
 }

@@ -7,6 +7,8 @@ import (
 
 func Cors() gin.HandlerFunc {
 	return func(c *gin.Context) {
+
+		//c.Set("traceId",traceId)
 		method := c.Request.Method
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Content-Type,AccessToken,X-CSRF-Token, Authorization, Token,GINAPPKEY,GINTOKEN,GINTIME,GINSIGN")

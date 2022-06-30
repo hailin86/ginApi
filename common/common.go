@@ -14,5 +14,6 @@ func Failed(c *gin.Context,msg string,code int,data interface{})  {
 		"msg":msg,
 		"code":code,
 		"data":data,
+		"trace_id":c.GetString(TraceKey),
 	})
 }

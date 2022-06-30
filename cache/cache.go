@@ -21,10 +21,10 @@ func InitRedis(config *conf.RedisConfig)  {
 	})
 	pong, err := RedisClient.Ping().Result()
 	if err == redis.Nil {
-		fmt.Print("Redis异常")
+		fmt.Println("Redis异常")
 	} else if err != nil {
-		fmt.Print("失败:",err)
+		fmt.Println("失败:",err)
 	} else {
-		fmt.Print(pong)
+		fmt.Println(pong)
 	}
 }
