@@ -20,6 +20,11 @@ func InitRouter(r *gin.Engine)  {
 		product := ProductController{}
 		indexCheckApp.POST("product/getItems",product.GetItems)
 		indexCheckApp.POST("product/getItem",product.GetItem)
+
+		login := LoginController{}
+		indexCheckApp.POST("login/loginByJson",login.LoginByJson)
+		indexCheckApp.POST("login/loginByForm",login.LoginByForm)
+		indexCheckApp.POST("login/loginByUrl",login.LoginByUrl)
 	}
 
 	//index 模块下 需要校验 请求合法性 以及需要登录才能访问的

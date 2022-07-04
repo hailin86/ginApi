@@ -19,12 +19,16 @@ func main()  {
 	//fmt.Println("mysql conn:",sqlConn)
 	model.InitDB(sqlConn) //gorm
 
+
+
 	//初始化redis
 	//fmt.Println("redis db num:",config.RedisConf.Db)
 	cache.InitRedis(config.RedisConf)
 
 	//初始化日志
 	common.InitLogger()
+
+	_ = common.InitCasbinEnforcer()
 
 
 	//初始化路由
