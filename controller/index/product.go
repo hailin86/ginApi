@@ -1,11 +1,9 @@
 package index
 
 import (
-	"fmt"
-	"ginApi/cache"
+	"ginApi/common"
 	"ginApi/model"
 	"github.com/gin-gonic/gin"
-	"net/http"
 	"time"
 )
 
@@ -15,36 +13,68 @@ type ProductController struct {
 
 //商品列表
 func (this *ProductController) GetItems (c *gin.Context)  {
-	c.JSON(http.StatusOK,gin.H{
-		"code":200,
-		"msg":"success",
-		"data":"我是 index 模块 product list",
-	})
+	list := []model.Product{
+		{
+			Id: 1,
+			Name:     "test001",
+			Price:    100,
+			Status:   1,
+			Created:  time.Now(),
+			Modified: time.Now(),
+		},
+		{
+			Id: 2,
+			Name:     "test002",
+			Price:    65,
+			Status:   1,
+			Created:  time.Now(),
+			Modified: time.Now(),
+		},
+		{
+			Id: 3,
+			Name:     "test003",
+			Price:    95,
+			Status:   1,
+			Created:  time.Now(),
+			Modified: time.Now(),
+		},
+	}
+	common.Success(c,list)
+}
+
+type ItemParam struct {
+	Id int `json:"id"`
 }
 
 //商品详情
 func (this *ProductController) GetItem (c *gin.Context)  {
-	id := 1
-	pc := &cache.ProductCache{}
-	res := pc.Get(id) // nil
-	fmt.Println("res:",res)
-	product := &model.Product{
-		Id:       1,
-		Name:     "测试商品",
-		Price:    100.55,
-		Status:   100,
-		Created:  time.Now(),
-		Modified: time.Now(),
+	var IdParam ItemParam
+	if err := c.ShouldBindJSON(&IdParam); err != nil {
+		common.Failed(c,"param id error",100,nil)
+		return
 	}
-	flag := pc.Set(1,product,120)
-	fmt.Println("set flag:",flag)
+	var p model.Product
+	if IdParam.Id ==1 {
+		p = model.Product{
+			Id:       1,
+			Name:     "test",
+			Price:    100,
+			Status:   1,
+			Created:  time.Now(),
+			Modified: time.Now(),
+		}
+	}else {
+		p = model.Product{
+			Id:       100,
+			Name:     "100test",
+			Price:    100,
+			Status:   1,
+			Created:  time.Now(),
+			Modified: time.Now(),
+		}
+	}
 
-	res1 := pc.Get(id) // product
-	fmt.Println("res1:",res1)
 
-	c.JSON(http.StatusOK,gin.H{
-		"code":200,
-		"msg":"success",
-		"data":res1,
-	})
+
+	common.Success(c,p)
 }

@@ -15,11 +15,12 @@ func CheckAppInstance() gin.HandlerFunc {
 			return
 		}
 		//获取到appKey 时间戳 等做一下校验
-		if appKey != "1000000" {
+		if appKey != "100000" {
 			c.JSON(http.StatusOK,gin.H{"code":1,"msg":"appKey not exists1","data":nil})
 			c.Abort()
 			return
 		}
+
 		//做一些 sign签名与 timestamp 时间戳的校验
 		//...
 
