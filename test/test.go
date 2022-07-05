@@ -29,6 +29,8 @@ type TestCase struct {
 }
 
 func init()  {
+	//跟main.go 保持一致，用到什么就初始化什么
+	//初始日志
 	common.InitLogger()
 }
 
@@ -52,6 +54,9 @@ func DoRequest(method, url, contentType string, body string) (c *gin.Context, r 
 	c.Request = r
 	c.Request.Header.Set("Content-Type", contentType)
 	c.Request.Header.Set("GINAPPKEY","100000")
+	//按照自己需求设置自己的 header
+	//...
+
 	route.ServeHTTP(w, r)
 	return
 }
