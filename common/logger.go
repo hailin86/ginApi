@@ -1,6 +1,7 @@
 package common
 
 import (
+	"ginApi/conf"
 	"github.com/gin-gonic/gin"
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
@@ -12,8 +13,8 @@ var (
 	TraceKey = "traceId"
 )
 
-func InitLogger() {
-	writeSyncer := getLogWriter()
+func InitLogger(config *conf.LoggerConfig) {
+	writeSyncer := getLogWriter(config)
 	encoder := getEncoder()
 	core := zapcore.NewCore(encoder, writeSyncer, zapcore.DebugLevel)
 	//logger := zap.New(core, zap.AddCaller())
@@ -52,12 +53,12 @@ func getEncoder() zapcore.Encoder {
 }
 
 // 保存文件日志切割
-func getLogWriter() zapcore.WriteSyncer {
+func getLogWriter(config *conf.LoggerConfig) zapcore.WriteSyncer {
 	lumberJackLogger := &lumberjack.Logger{
-		Filename:   "./logs/app.log", // 指定日志文件目录
-		MaxSize:    20,            // 文件内容大小, MB
-		MaxBackups: 5,            // 保留旧文件最大个数
-		MaxAge:     30,           // 保留旧文件最大天数
+		Filename:   config.Filename, // 指定日志文件目录
+		MaxSize:    config.MaxSize,            // 文件内容大小, MB
+		MaxBackups: config.MaxBackups,            // 保留旧文件最大个数
+		MaxAge:     config.MaxAge,           // 保留旧文件最大天数
 		Compress:   false,        // 文件是否压缩
 	}
 	return zapcore.AddSync(lumberJackLogger)
