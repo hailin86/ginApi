@@ -10,6 +10,7 @@ type Config struct {
 	AppConf *AppConfig
 	SqlConn string
 	RedisConf *RedisConfig
+	LoggerConf *LoggerConfig
 	//....
 }
 
@@ -25,6 +26,13 @@ type RedisConfig struct {
 	Password string
 	Db int
 }
+type LoggerConfig struct {
+	Filename string
+	MaxSize  int
+	MaxBackups int
+	MaxAge int
+}
+
 
 func InitConf() *Config  {
 	viper.SetConfigType("yaml") //设置配置文件格式
@@ -54,6 +62,12 @@ func InitConf() *Config  {
 			Port:     viper.GetString("redis.port"),
 			Password: viper.GetString("redis.password"),
 			Db:       viper.GetInt("redis.db"),
+		},
+		LoggerConf: &LoggerConfig{
+			Filename:    viper.GetString("logger.filename"),
+			MaxSize:    viper.GetInt("logger.maxsize"),
+			MaxBackups: viper.GetInt("logger.maxbackups"),
+			MaxAge:     viper.GetInt("logger.maxage"),
 		},
 	}
 }

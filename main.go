@@ -24,7 +24,7 @@ func main()  {
 	cache.InitRedis(config.RedisConf)
 
 	//初始化日志
-	common.InitLogger()
+	common.InitLogger(config.LoggerConf)
 
 
 	//初始化路由
