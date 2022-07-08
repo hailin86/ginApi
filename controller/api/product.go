@@ -1,8 +1,9 @@
 package api
 
 import (
+	"fmt"
+	"ginApi/common"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 type ProductController struct {
@@ -11,19 +12,23 @@ type ProductController struct {
 
 //商品列表
 func (this *ProductController) GetItems (c *gin.Context)  {
+	//
 
-	c.JSON(http.StatusOK,gin.H{
-		"code":200,
-		"msg":"success",
-		"data":"我是 api product list",
-	})
+
+	common.Success(c,"open api product list")
 }
 
 //商品详情
 func (this *ProductController) GetItem (c *gin.Context)  {
-	c.JSON(http.StatusOK,gin.H{
-		"code":200,
-		"msg":"success",
-		"data":"我是 api product detail",
-	})
+	apiParams , _ := c.Get("apiParams")
+	fmt.Println("api params:",apiParams)
+	params := apiParams.(map[string]interface{})
+	productId ,ok := params["id"]
+	if !ok {
+		common.Failed(c,"param id required",1100,nil)
+		return
+	}
+	//查找商品
+	fmt.Println(productId)
+	common.Success(c,params)
 }

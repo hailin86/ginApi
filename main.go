@@ -1,15 +1,25 @@
 package main
 
 import (
+	"fmt"
 	"ginApi/cache"
 	"ginApi/common"
 	"ginApi/middleware"
 	"ginApi/model"
 	"ginApi/router"
 	"github.com/gin-gonic/gin"
+	"reflect"
+	"strings"
 )
 
 func main()  {
+
+	v := 1
+	value := strings.TrimSpace(fmt.Sprintf("%v", v))
+
+	fmt.Println("type =",reflect.TypeOf(value))
+	fmt.Println("value =",value)
+
 
 	//初始化配置
 	configPath := "./conf"
