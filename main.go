@@ -3,7 +3,6 @@ package main
 import (
 	"ginApi/cache"
 	"ginApi/common"
-	"ginApi/conf"
 	"ginApi/middleware"
 	"ginApi/model"
 	"ginApi/router"
@@ -11,8 +10,10 @@ import (
 )
 
 func main()  {
+
 	//初始化配置
-	config := conf.InitConf()
+	configPath := "./conf"
+	config := common.InitConf(configPath)
 
 	//初始化mysql
 	sqlConn := config.SqlConn

@@ -1,10 +1,9 @@
-package conf
+package common
 
 import (
 	"fmt"
 	"github.com/spf13/viper"
 )
-
 
 type Config struct {
 	AppConf *AppConfig
@@ -33,10 +32,9 @@ type LoggerConfig struct {
 	MaxAge int
 }
 
-
-func InitConf() *Config  {
+func InitConf(path string) *Config  {
 	viper.SetConfigType("yaml") //设置配置文件格式
-	viper.AddConfigPath("conf/") //设置配置文件的路径
+	viper.AddConfigPath(path) //设置配置文件的路径
 	viper.SetConfigName("app")	//设置配置文件名
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
@@ -64,11 +62,10 @@ func InitConf() *Config  {
 			Db:       viper.GetInt("redis.db"),
 		},
 		LoggerConf: &LoggerConfig{
-			Filename:    viper.GetString("logger.filename"),
+			Filename:   viper.GetString("logger.filename"),
 			MaxSize:    viper.GetInt("logger.maxsize"),
 			MaxBackups: viper.GetInt("logger.maxbackups"),
 			MaxAge:     viper.GetInt("logger.maxage"),
 		},
 	}
 }
-

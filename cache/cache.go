@@ -2,14 +2,14 @@ package cache
 
 import (
 	"fmt"
-	"ginApi/conf"
+	"ginApi/common"
 	"github.com/go-redis/redis"
 	"time"
 )
 
 var RedisClient *redis.Client
 
-func InitRedis(config *conf.RedisConfig)  {
+func InitRedis(config *common.RedisConfig)  {
 	addr := config.Host+ ":" +config.Port
 	RedisClient = redis.NewClient(&redis.Options{
 		Addr:    addr, // Redis地址

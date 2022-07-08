@@ -12,6 +12,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 )
 
@@ -29,9 +30,14 @@ type TestCase struct {
 }
 
 func init()  {
+	path ,_ := os.Getwd()
+	configPath := path + "/../../conf"
+	fmt.Println("conf path:",configPath)
+	config := common.InitConf(configPath)
 	//跟main.go 保持一致，用到什么就初始化什么
 	//初始日志
-	common.InitLogger()
+	fmt.Println(config.LoggerConf.Filename)
+	common.InitLogger(config.LoggerConf)
 }
 
 func NewBufferString(body string) io.Reader {
